@@ -9,7 +9,7 @@ module.exports.checkUser = (req, res, next) => {
                 console.log('bad token');
                 res.locals.user = null;
                 res.cookie('jwt', '', {maxAge:1});
-                next();
+                return res.status(400).send('bad token');
             } else {
                 console.log('token is ok');
                 let user = await UserModel.findById(decodedToken.id);
@@ -20,7 +20,7 @@ module.exports.checkUser = (req, res, next) => {
     } else {
         console.log('no token');
         res.locals.user = null;
-        next();
+        return res.status(400).send('no token');
     }
 }
 

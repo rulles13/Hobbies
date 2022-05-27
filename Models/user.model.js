@@ -7,33 +7,34 @@ const userSchema = new mongoose.Schema(
         pseudo: {
             type: String,
             required: true,
-            minLength: 3,
-            maxLength: 55,
+            minlength: 3,
+            maxlength: 55,
             unique: true,
             trim: true,
         },
         firstName: {
             type: String,
-            minLength: 2,
-            maxLength: 55,
+            minlength: 2,
+            maxlength: 55,
         },
         lastName: {
             type: String,
-            minLength: 2,
-            maxLength: 55,
+            minlength: 2,
+            maxlength: 55,
         },
         email: {
             type: String,
             required: true,
             validate: [isEmail],
             lowercase: true,
+            unique: true,
             trim: true,
         },
         password: {
             type: String,
             required: true,
-            maxLenght: 1024,
-            minLength: 6,
+            maxlenght: 1024,
+            minlength: 6,
         },
         friends: {
             type: [String]

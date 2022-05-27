@@ -1,14 +1,14 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const usersRoutes = require('./routes/user.routes');
+const userRoutes = require('./routes/user.routes');
+const postRoutes = require('./routes/post.routes');
 require ('dotenv').config({path: './config/.env'});
 require("./config/db");
 const {checkUser, requireAuth} = require('./middleware/auth.middleware');
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
 //jwt
@@ -18,7 +18,8 @@ app.get('/jwtid', requireAuth, (req, res) => {
 })
 
 //routes
-app.use('/api/user', usersRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/post', postRoutes);
 
 //server
 app.listen(process.env.PORT, () => {
