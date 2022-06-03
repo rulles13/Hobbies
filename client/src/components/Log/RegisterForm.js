@@ -7,6 +7,8 @@ const RegisterForm = () => {
     const [pseudo, setPseudo] = useState("");
     const [email, setEmail] = useState("");
     const [adresse, setAdresse] = useState("");
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
     const [password, setPassword] = useState("");
     const [controlPassword, setControlPassword] = useState("");
   
@@ -37,6 +39,8 @@ const RegisterForm = () => {
             pseudo,
             email,
             adresse,
+            latitude,
+            longitude,
             password,
           },
         })
@@ -53,6 +57,31 @@ const RegisterForm = () => {
           .catch((err) => console.log(err));
       }
     };
+
+    const geoLoc = (e) => {
+      e.preventDefault();
+      if (!adresse) console.log("no adresse");
+      else {
+        const params = {
+          access_key: process.env.REACT_APP_API_POSITIONSTACK_TOKEN,
+          query: { adresse },
+          country: 'BE',
+        }
+
+        console.log(params);
+        
+        axios.get('http://api.positionstack.com/v1/forward', {params})
+          .then(response => {
+            console.log(response.data);
+            setLatitude(response.data.data[0].latitude);
+            setLongitude(response.data.data[0].longitude);
+            console.log({latitude});
+            
+          }).catch(error => {
+            console.log(error);
+          });
+      }
+    }
   
     return (
       <>
@@ -88,15 +117,17 @@ const RegisterForm = () => {
             />
             <div className="email error"></div>
             <br />
-            <label htmlFor="email">Adresse</label>
+            <label htmlFor="adresse">Adresse</label>
             <br />
             <input
-              type="text"
+              type="adresse"
               name="adresse"
               id="adresse"
               onChange={(e) => setAdresse(e.target.value)}
               value={adresse}
             />
+            <br />
+            <button onClick={geoLoc}> Me géolocaliser </button>
             <div className="adresse error"></div>
             <br />
             <label htmlFor="password">Mot de passe</label>
