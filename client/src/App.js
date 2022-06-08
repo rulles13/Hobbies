@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { UidContext } from './components/AppContext';
 import Routes from './components/Routes';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { getUser } from './actions/user.actions';
 
 const App = () => {
-  const [uid,SetUid] = useState(null);
+  const [uid,setUid] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(()=> {
     const fetchToken = async() => {
@@ -13,11 +16,13 @@ const App = () => {
         url: `${process.env.REACT_APP_API_URL}jwtid`,
         withCredentials: true,
       })
-      .then((res) => SetUid(res.data))
+      .then((res) => {setUid(res.data)})
+      .then (() => {if (uid) dispatch(getUser(uid))})
       .catch((err) => console.log('no token'))
     }
     fetchToken();
-  }, []);
+    
+  },[uid, dispatch]);
 
   return (
     <UidContext.Provider value={uid}>

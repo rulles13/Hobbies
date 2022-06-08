@@ -31,18 +31,20 @@ const userSchema = new mongoose.Schema(
             trim: true,
         },
         adresse: {
-            adresse :{
-                type: String,
-                //required: true,
-                minlength: 10,
-                maxlength: 55,   
-            },
+            type: String,
+            //required: true,
+            minlength: 10,
+            maxlength: 55,   
+        },
+        
+        geoPos:{
             latitude :{
                 type: Number,
             },
             longitude :{
                 type: Number,
-            }  
+            },
+            
         },
         password: {
             type: String,

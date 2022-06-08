@@ -1,8 +1,10 @@
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/user.model');
+//const cookieParser = require ('cookie-parser');
 
 module.exports.checkUser = (req, res, next) => {
     const token = req.cookies.jwt;
+    console.log(token);
     if (token) {
         jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
             if (err) {
@@ -18,9 +20,9 @@ module.exports.checkUser = (req, res, next) => {
             }
         })
     } else {
-        console.log('no token');
+        console.log('no token from auth middleware');
         res.locals.user = null;
-        return res.status(400).send('no token');
+        return res.status(400).send('no token from auth middleware');
     }
 }
 

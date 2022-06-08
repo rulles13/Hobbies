@@ -5,7 +5,7 @@ const params = {
   country: 'BE',
 }
 
-axios.get('https://api.positionstack.com/v1/forward', {params})
+axios.get('http://api.positionstack.com/v1/forward', {params})
   .then(response => {
     console.log(response.data);
   }).catch(error => {
