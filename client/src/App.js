@@ -9,20 +9,23 @@ const App = () => {
   const [uid,setUid] = useState(null);
   const dispatch = useDispatch();
 
-  useEffect(()=> {
-    const fetchToken = async() => {
-      await axios({
-        method: 'get',
-        url: `${process.env.REACT_APP_API_URL}jwtid`,
-        withCredentials: true,
-      })
-      .then((res) => {setUid(res.data)})
-      .then (() => {if (uid) dispatch(getUser(uid))})
-      .catch((err) => console.log('no token'))
-    }
+  useEffect(() => {
+    const fetchToken = async () => {
+        await axios({
+            method: "get",
+            url: `${process.env.REACT_APP_API_URL}jwtid`,
+            withCredentials: true,
+        })
+            .then((res) => {
+                console.log(res);
+                setUid(res.data);
+            })
+            .catch((err) => console.log("no token"));
+    };
     fetchToken();
-    
-  },[uid, dispatch]);
+
+    if (uid) dispatch(getUser(uid));
+}, []);
 
   return (
     <UidContext.Provider value={uid}>
