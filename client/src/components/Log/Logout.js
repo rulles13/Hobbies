@@ -4,6 +4,7 @@ import cookie from 'js-cookie';
 
 const Logout = () => {
 
+
     const removeCookie = (key) => {
         if (window !== "undefined") {
             cookie.remove(key, {expires: 1});
@@ -17,6 +18,7 @@ const Logout = () => {
             withCredentials: true,
         })
         .then(() => removeCookie('jwt'))
+      
         .catch((err) => console.log(err))
         window.location ='/';
     }

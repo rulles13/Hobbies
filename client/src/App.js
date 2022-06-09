@@ -17,15 +17,14 @@ const App = () => {
                 withCredentials: true,
             })
                 .then((res) => {
-                    console.log(res);
+                    console.log("client app get uid : " + res.data);
+                    //test
                     setUid(res.data);
-                })
-                .then(() => {
-                    if (uid) dispatch(getUser(uid));
                 })
                 .catch((err) => console.log("no token"));
         };
         fetchToken();
+        if (uid) dispatch(getUser(uid));
     }, [dispatch]);
 
     return (

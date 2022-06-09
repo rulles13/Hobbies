@@ -17,7 +17,7 @@ module.exports.checkUser = async (req, res, next) => {
                     console.log("bad token");
                     res.locals.user = null;
                     res.cookie("jwt", "", { maxAge: 1 });
-                    return res.status(400).send("bad token");
+                    next();
                 } else {
                     console.log("token is ok");
                     let user = await UserModel.findById(decodedToken.id);
@@ -29,7 +29,7 @@ module.exports.checkUser = async (req, res, next) => {
     } else {
         console.log("no token from auth middleware");
         res.locals.user = null;
-        return res.status(400).send("no token from auth middleware");
+        next();
     }
 };
 
