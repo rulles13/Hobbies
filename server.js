@@ -21,7 +21,7 @@ app.use(function (req, res, next) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(checkUser);
+//app.use(checkUser);
 
 //jwt
 app.get("*", checkUser);

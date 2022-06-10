@@ -2,8 +2,6 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 
-
-
 const Map = ({data}) => {
   let latitude = data.geoPos.latitude
   let longitude = data.geoPos.longitude

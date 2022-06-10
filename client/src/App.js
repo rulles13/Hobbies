@@ -18,14 +18,14 @@ const App = () => {
             })
                 .then((res) => {
                     console.log("client app get uid : " + res.data);
-                    //test
+                    //test2
                     setUid(res.data);
                 })
                 .catch((err) => console.log("no token"));
         };
         fetchToken();
         if (uid) dispatch(getUser(uid));
-    }, [dispatch]);
+    }, [uid, dispatch]);
 
     return (
         <UidContext.Provider value={uid}>
